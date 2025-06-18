@@ -1,0 +1,73 @@
+{
+  "name": "OFFSTAR AI Development Platform",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-vscode.vscode-json",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "ms-vscode.vscode-ai",
+        "ms-vscode.live-server",
+        "ms-vscode.remote-containers"
+      ],
+      "settings": {
+        "typescript.suggest.autoImports": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "workbench.colorTheme": "GitHub Dark",
+        "editor.minimap.enabled": true,
+        "editor.wordWrap": "on",
+        "files.autoSave": "afterDelay",
+        "git.enableSmartCommit": true
+      }
+    }
+  },
+  "forwardPorts": [3000, 5000, 8080, 8000, 3001],
+  "postCreateCommand": "npm install && pip install -r requirements.txt && npm run setup",
+  "postStartCommand": "npm run dev",
+  "remoteUser": "node",
+  "portsAttributes": {
+    "3000": {
+      "label": "Frontend (Next.js)",
+      "onAutoForward": "notify"
+    },
+    "5000": {
+      "label": "Backend API",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "AI Processing",
+      "onAutoForward": "silent"
+    },
+    "3001": {
+      "label": "Replit Bridge",
+      "onAutoForward": "silent"
+    }
+  },
+  "mounts": [
+    "source=offstar-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+  "containerEnv": {
+    "OFFSTAR_ENV": "codespaces",
+    "NODE_ENV": "development",
+    "PYTHONPATH": "${containerWorkspaceFolder}/ai-services"
+  }
+}
