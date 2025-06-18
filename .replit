@@ -1,0 +1,70 @@
+modules = ["nodejs-20", "python-3.11", "web"]
+hidden = [".config", "package-lock.json", ".next", ".env", "node_modules", ".git"]
+
+[nix]
+channel = "stable-24_05"
+
+[env]
+PATH = "/home/runner/$REPL_SLUG/.config/npm/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
+NPM_CONFIG_PREFIX = "/home/runner/$REPL_SLUG/.config/npm"
+NODE_ENV = "development"
+PYTHONPATH = "/home/runner/$REPL_SLUG/ai-services"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+enabledForHosting = false
+
+[languages.typescript]
+pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
+syntax = "typescript"
+
+[languages.python]
+pattern = "**/*.py"
+syntax = "python3"
+
+[deployment]
+publicDir = ".next"
+deploymentTarget = "static"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+exposeLocalhost = true
+
+[[ports]]
+localPort = 5000
+externalPort = 5000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+exposeLocalhost = true
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[ai]
+model = "replit-code-v1.5-3b"
+
+[debugger]
+support = true
+
+[unitTest]
+language = "nodejs"
+
+[objectStorage]
+defaultBucket = "offstar-assets"
+
+[secrets]
+NODE_ENV = "development"
+OFFSTAR_API_KEY = ""
+IONET_API_KEY = ""
+IONET_INTELLIGENCE_KEY = ""
+OBL_API_KEY = ""
+REPLIT_AI_TOKEN = ""
+GITHUB_TOKEN = ""
